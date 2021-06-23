@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+        <link rel="stylesheet" href="../css/index.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+        <script type="text/javascript"
+        src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script type="text/javascript"
+        src="http://static.robotwebtools.org/mjpegcanvasjs/current/mjpegcanvas.min.js"></script>
+        <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/threejs/current/three.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/threejs/current/ColladaLoader.min.js"></script>
+    <script type="text/javascript"
+        src="http://static.robotwebtools.org/ColladaAnimationCompress/current/ColladaLoader2.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/threejs/current/STLLoader.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
+    <!-- <script src="path/to/vanilla.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+    <script src="../js/index.js"></script>
+
+
+    <title>MRP Automation</title>
+</head>
+
+<body onresize="location.reload()" style="background-color: rgb(228, 227, 227);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"
+        style="background-image: linear-gradient(rgb(238, 106, 29),rgb(233, 109, 37));">
+        <div class="container-fluid">
+            <h5 class="navbar-brand" style="color: #fff; cursor: default;"><i class="fas fa-code-branch"></i> MRP
+                Automation</h5>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation" style="background-color: rgba(255, 248, 248, 0.836);">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" style="color: #fff;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: #fff;">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
+                            About
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="d-flex nav-item">
+                    <a class="nav-link" aria-current="page" href="#" style="color: #fff;">Log out</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid p-2">
+        <div id="full">
+            <div class="row m-1">
+                <!-- button control  -->
+                <div class="col-1 m-1 p-2 " style="border-radius: 8px; background-color: #fff;">
+
+                    <!-- <h5 style="color:rgb(104, 103, 103); ">Power</h5>
+                    <button id="togglebutton" class="btn btn-outline-success mt-1 ms-2 mb-1 " type="button" onclick="power()">Power
+                        on</button> -->
+                    <h5 style="color:rgb(104, 103, 103); ">Mode</h5>
+                    <button id="togglemode" class="btn btn-outline-primary mt-1 ms-2 mb-1 " style="font-size: large; ;" onclick="mode()">Change</button>
+
+                    <h5 style="color:rgb(104, 103, 103);">Shape</h5>
+                    <button id="hidebutt1" class="btn btn-outline-primary mt-1 ms-2 mb-1 " style="font-size: large; ;" onclick="circle()">Circle</button>
+                    <button id="hidebutt2" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="rectangle()">Rectangle</button>
+
+                    <h5 style="color:rgb(104, 103, 103)">Color</h5>
+                    <button id="hidebutt3" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="red()">Red</button>
+                    <button id="hidebutt4" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="green()">Green</button>
+
+                    <h5 style="color:rgb(104, 103, 103)">Advances</h5>
+                    <button id="hidebutt5" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="box1()">Green-rec</button>
+                    <button id="hidebutt6" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="box2()">Green-cir</button>
+                    <button id="hidebutt7" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="box3()">Red-rec</button>
+                    <button id="hidebutt8" class="btn btn-outline-primary mt-1 ms-2 mb-1" style="font-size: large; ;" onclick="box4()">Red-cir</button>
+
+                    <h5 style="color:rgb(104, 103, 103)">Reset</h5>
+                    <button id="hidebutt9" class="btn btn-outline-primary mt-1 ms-2 mb-1 " style="font-size: large; ;" onclick="clearReset()">Reset</button>
+
+                    <h5 style="color:rgb(104, 103, 103)">Emergency</h5>
+                    <button id="hidebutt" class="btn btn-outline-danger mt-1 ms-2 mb-1 " style="font-size: large; ;" onclick="emer()">Shut down</button>
+                </div>
+                <!-- main -->
+                <div class="col m-1">
+                    <div class=" mb-2  "  style="min-height: 100vh; border-radius: 8px;">
+                        <div class="row gx-2 p-3 justify-content-around ">
+                            <div class="col-sm-2">
+                                <div class="card" style="border-radius: 10px;border: rgb(184, 184, 184);">
+                                    <div class="card-header p-2"
+                                        style="color: #fff; background-image: linear-gradient(rgb(16, 98, 153),rgb(22, 89, 175)); border-radius: 10px 10px 0 0; text-align: center; ">
+                                        <h5>Server</h5>
+                                    </div>
+                                    <div class="card-body"  style="text-align: center;">
+                                        <h3 id="status" class="refresher">Disconnect</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <div class="card" style="border-radius: 10px; border: rgb(184, 184, 184);">
+                                    <div class="card-header p-2"
+                                        style="color: #fff; background-image: linear-gradient(rgb(16, 98, 153),rgb(22, 89, 175)); border-radius: 10px 10px 0 0; text-align: center;">
+                                        <h5>Mode</h5>
+                                    </div>
+                                    <div class="card-body"  style="text-align: center; ">
+                                        <h3 id="modechange">Auto</h3>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="card" style="border-radius: 10px;">
+                                    <div class="card-header p-2"
+                                        style="color: #fff; background-image: linear-gradient(rgb(16, 98, 153),rgb(22, 89, 175));
+                                         border-radius: 10px 10px 0 0;
+                                         text-align: center;
+                                         ">
+                                        <h5>Shape</h5>
+                                    </div>
+                                    <div class="card-body"  style="text-align: center;">
+                                        <h3 id="shape">-<span><i class="fas fa-circle"></i></span></h3>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="card" style="border-radius: 10px; ">
+                                    <div class="card-header p-2"
+                                        style="color: #fff; background-image: linear-gradient(rgb(16, 98, 153),rgb(22, 89, 175)); border-radius: 10px 10px 0 0; text-align: center;">
+                                        <h5>Color</h5>
+                                    </div>
+                                    <div class="card-body"  style="text-align: center;" style="text-align: center;">
+                                        <h3 id="color">-</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row gx-2  " style="padding: 12px 0px 0 92px;">
+                            <!-- robot model -->
+                            <div class="col-5   " id="sizemodel"   style="margin-right: 160px; border-radius: 8px; padding: 17px;background-color: #fff;">
+                                <h5 style="color:rgb(104, 103, 103)">Model</h5>
+                                <div class="row mb-5">
+                                    <div class="col">
+                                        <div class="mb-2" style="height: 30rem;">
+                                            <div id="urdf"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <h5 style="color:rgb(104, 103, 103)">Set model</h5>
+                                    <div class="row justify-content-around">
+                                        <div class="col-4">
+                                            <button id="hidebutt10" class="btn btn-outline-primary mt-1 ms-2 mb-1" onclick="home()" style="font-size: x-large;">Home</button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button  id="hidebutt11" class="btn btn-outline-primary mt-1 ms-2 mb-1" onclick="stand()" style="font-size: x-large;">Stand</button>
+                                        </div>
+
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <!-- column 2 show camera stream and object -->
+                            <div class="col-5  " id="sizestream"  style="border-radius: 8px; padding: 17px;background-color: #fff;">
+                                <div class="row mb-5 ">
+                                    <h5 style="color:rgb(104, 103, 103)">Camera</h5>
+                                    <div class="col-10  mb-2" style="height: 30rem;">
+                                        <div id="mjpeg2"></div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <h5 style="color:rgb(104, 103, 103)">Object detect: <span id="num_objects"
+                                            style="color:rgb(104, 103, 103)">None</span></h5>
+                                    <div class="row justify-content-around mb-3">
+                                        <div class="col-4 ">
+                                            <h3 id="type_objectsGC"
+                                                style="text-align: center; color: #fff; background-color: green;border-radius: 5px;">
+                                            </h3>
+                                        </div>
+                                        <div class="col-4">
+                                            <h3 id="type_objectsGR"
+                                                style="text-align: center; color: #fff; background-color: green;border-radius: 5px;">
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-around mb-3">
+                                        <div class="col-4">
+                                            <h3 id="type_objectsRC"
+                                                style="text-align: center; color: #fff; background-color: rgb(184, 4, 22);border-radius: 5px;">
+                                            </h3>
+                                        </div>
+                                        <div class="col-4">
+                                            <h3 id="type_objectsRR"
+                                                style="text-align: center; color: #fff; background-color: rgb(184, 4, 22);border-radius: 5px;">
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- controller -->
+                <div id="joint_cont" class="col-2 m-1 p-2 " style="display: none; border-radius: 8px; background-color: #fff;" >
+                    <div>
+                        <h5 style="color:rgb(104, 103, 103)">Controller</h5>
+                        <div class="row gx-2 p-3 ">
+                            <div class="col p-2 ">
+                                <div class="slidecontainer" style="align-items: center;">
+                                    <h5><span>Base Joint</span>
+                                        <span>
+                                            <input type="range" min="0" max="3.14" step="0.01" value="" class="slider"
+                                                id="myRange">
+                                            <h6>Value: <span id="demo"></span></h6>
+                                        </span>
+                                    </h5>
+                                </div>
+                                <hr />
+                                <div class="slidecontainer">
+                                    <h5>Shoulder Joint
+                                        <span> <input type="range" min="0.26" max="2.87" value='0.6' step="0.01" value=""
+                                                class="slider" id="myRange2">
+                                            <h6>Value: <span id="demo2"></span></h6>
+                                        </span>
+                                    </h5>
+                                </div>
+                                <hr />
+                                <div class="slidecontainer">
+                                    <h5>Elbow Joint
+                                        <span>
+                                            <input type="range" min="0" max="3.14" step="0.01" value="" class="slider"
+                                                id="myRange3">
+                                            <h6>Value: <span id="demo3"></span></h6>
+                                        </span>
+                                    </h5>
+                                </div>
+                                <hr />
+                                <div class="slidecontainer">
+                                    <h5>Wrist Pitch Joint
+                                        <span>
+                                            <input type="range" min="0" max="3.14" step="0.01" value="" class="slider"
+                                                id="myRange4">
+                                            <h6>Value: <span id="demo4"></span></h6>
+                                        </span>
+                                    </h5>
+                                </div>
+                                <hr />
+                                <div class="slidecontainer">
+                                    <h5>Wrist Roll Joint
+                                        <span>
+                                            <input type="range" min="0" max="3.14" step="0.01" value="" class="slider"
+                                                id="myRange5">
+                                            <h6>Value: <span id="demo5"></span></h6>
+                                        </span>
+                                    </h5>
+                                </div>
+                                <hr />
+                                <div class="slidecontainer">
+                                    <h5>Gripper Joint
+                                        <span>
+                                            <input type="range" min="0.2" max="1.65" step="0.01" value="" class="slider"
+                                                id="myRange6">
+                                            <h6>Value: <span id="demo6"></span></h6>
+                                        </span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<footer class="bg-light text-center text-lg-start">
+
+    <div class="text-start p-3" style="background-color: rgba(247, 109, 17, 0.877); color: #fff;">
+        © 2020 Automation Engineering (INC 26)
+    </div>
+
+</footer>
+
+</html>
